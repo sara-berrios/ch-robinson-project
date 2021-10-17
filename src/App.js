@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
+import Stack from '@mui/material/Stack';
 
 class App extends Component {
   constructor(props){
@@ -6,7 +9,8 @@ class App extends Component {
 
     this.state={
       input:"",
-      countryList:[]
+      countryList:[],
+      errorMessage:""
     }
     this.map = new Map();
     this.map.set('USA', ['USA'])
@@ -35,14 +39,17 @@ class App extends Component {
       })
     }
     else{
-      console.log("error") //display error message if time
+      this.setState({
+        errorMessage: "Invalid Country Code"
+      })    
     }
   }
 
   resetPath(){
     this.setState({
       input:"",
-      countryList: []
+      countryList: [],
+      errorMessage: ""
     })
   }
 
@@ -50,30 +57,36 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          Add an Item...
+          <h1>Find a Path</h1>
           <br/>
-          <input
+          <TextField
+            variant="filled"
             type="text"
             placeholder="Type Country Code"
             value={this.state.input}
             onChange={e => this.updateInput(e.target.value)}
             />
-            <button
+
+          <Stack spacing={2} width="300px">
+            <Button variant="outlined"
               onClick={() => this.findPath()}
             >
             Find Path
-            </button>
+            </Button>
 
-            <button
+            <Button variant="contained"
               onClick={() => this.resetPath()}
             >
             Reset
-            </button>
+            </Button>
+          </Stack>
 
             <br/>
 
           {this.state.countryList.map((country) => 
             <li key={`${country}`}>{country}</li>)}
+
+          <h2>{this.state.errorMessage}</h2>
 
           </div>
       </div>
