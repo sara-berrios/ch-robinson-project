@@ -39,7 +39,7 @@ class App extends Component {
     else{
       this.setState({
         errorMessage: "Invalid Country Code",
-        countryList:[]
+        countryList:[],
       })    
     }
   }
@@ -56,7 +56,7 @@ class App extends Component {
     return (
       <Grid container direction="column" alignItems="center" justify="center" style= {{marginTop: "150px"}}>
 
-        <Typography variant="h5" color="primary" style = {{ marginBottom: "1em"} }>
+        <Typography variant="h4" color="primary" style = {{ marginBottom: "1em"} }>
           Find a Path
         </Typography>
 
