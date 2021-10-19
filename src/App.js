@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import Button from '@mui/material/Button';
-import { TextField } from '@mui/material';
-import Stack from '@mui/material/Stack';
+import { Grid, TextField, Typography, Stack, Button } from '@mui/material';
 
 class App extends Component {
   constructor(props){
@@ -40,7 +38,8 @@ class App extends Component {
     }
     else{
       this.setState({
-        errorMessage: "Invalid Country Code"
+        errorMessage: "Invalid Country Code",
+        countryList:[]
       })    
     }
   }
@@ -55,43 +54,45 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div>
-          <h1>Find a Path</h1>
-          <br/>
-          <TextField
-            variant="filled"
-            type="text"
-            placeholder="Type Country Code"
-            value={this.state.input}
-            onChange={e => this.updateInput(e.target.value)}
-            />
+      <Grid container direction="column" alignItems="center" justify="center" style= {{marginTop: "150px"}}>
 
-          <Stack spacing={2} width="300px">
-            <Button variant="outlined"
-              onClick={() => this.findPath()}
-            >
+        <Typography variant="h5" color="primary" style = {{ marginBottom: "1em"} }>
+          Find a Path
+        </Typography>
+
+        <TextField
+          variant = "outlined"
+          label="Type Country Code"
+          value = {this.state.input}
+          onChange={e => this.updateInput(e.target.value)}
+          style = {{ marginBottom: "2em"} }
+        />
+
+        <Stack spacing={2} width="200px" style = {{ marginBottom: "1em"} }>
+          <Button variant="contained"
+            onClick={() => this.findPath()}
+          >
             Find Path
-            </Button>
-
-            <Button variant="contained"
-              onClick={() => this.resetPath()}
-            >
+          </Button>
+          <Button variant="contained"
+            onClick={() => this.resetPath()}
+          >
             Reset
-            </Button>
-          </Stack>
+          </Button>
+        </Stack>
 
-            <br/>
+        <Typography variant="h7" color="red" style = {{ marginBottom: "1em"} }>
+          <b>{this.state.errorMessage}</b>
+        </Typography>
 
-          {this.state.countryList.map((country) => 
-            <li key={`${country}`}>{country}</li>)}
-
-          <h2>{this.state.errorMessage}</h2>
-
-          </div>
-      </div>
+        <Typography variant="h6" >
+          { this.state.countryList.map((country) => 
+             <li key={`${country}`}>{country}</li>)
+          }
+        </Typography>
+        
+      </Grid>
     );
   }
 }
-//make UI prettier if time
 export default App;
